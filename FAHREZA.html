@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Cintaku</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5c8f1, #fac4c4);
+            color: #333;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease-in-out;
+            background-attachment: fixed; /* Efek Parallax */
+        }
+        header {
+            text-align: center;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        header h1 {
+            font-size: 3rem;
+            color: #ff7eb6;
+            font-family: 'Cursive', sans-serif;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #6c4a7f;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 15px;
+        }
+        .gallery img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: 30px;
+            border-radius: 10px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        audio {
+            margin-top: 20px;
+        }
+        .welcome-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .welcome-panel input {
+            margin: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .welcome-panel button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #ff7eb6;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .welcome-panel button:hover {
+            background: #f05f9c;
+        }
+        .message-panel {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+        .message-panel textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        .message-panel button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #ff7eb6;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .trivia {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 20px;
+            border-radius: 10px;
+            opacity: 0;
+            animation: fadeIn 4s forwards;
+        }
+        .trivia button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #f05f9c;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .trivia h2 {
+            text-align: center;
+            color: #ff7eb6;
+        }
+        .map-container {
+            margin: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+        }
+        .floating-particles {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatParticles 2s ease-in-out infinite;
+        }
+        .floating-particles span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff7eb6;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticles 3s ease-in-out infinite;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -10%;
+            animation: floatBalloon 8s infinite ease-in-out;
+        }
+        .balloon img {
+            width: 100px;
+            height: 150px;
+        }
+
+        @keyframes floatBalloon {
+            0% { bottom: -10%; transform: translateX(0); }
+            50% { transform: translateX(50px); }
+            100% { bottom: 100%; transform: translateX(-50px); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes floatParticles {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { transform: translateY(-100px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0; }
+        }
+    </style>
+    <script>
+        const clickSound = new Audio('click.mp3'); // Tambahkan file suara klik di sini
+
+        function startExperience() {
+            const name = document.getElementById('nameInput').value;
+            if (name) {
+                document.querySelector('.welcome-panel').style.display = 'none';
+                document.getElementById('greetingName').innerText = name;
+                showSurprise();
+                clickSound.play();
+            } else {
+                alert('Masukkan namamu terlebih dahulu!');
+            }
+        }
+
+        function showSurprise() {
+            const surpriseContainer = document.createElement('div');
+            surpriseContainer.className = 'surprise-container';
+            surpriseContainer.innerHTML = `
+                <img src="eza.jpg" alt="MMMWWAHHH">
+                <p>Selamat Ulang Tahun, Sayang! 🎉</p>
+            `;
+            document.body.appendChild(surpriseContainer);
+            setTimeout(() => {
+                surpriseContainer.style.display = 'none';
+            }, 5000);
+        }
+
+        function submitMessage() {
+            const message = document.getElementById('messageInput').value;
+            if (message) {
+                alert('Pesan kamu berhasil disimpan!');
+                console.log(`Pesan dari pengguna: ${message}`);
+                document.getElementById('messageInput').value = '';
+                clickSound.play();
+            } else {
+                alert('Silakan tulis pesan terlebih dahulu!');
+            }
+        }
+
+        function showTrivia() {
+            const triviaContent = [
+                "Apakah kamu tahu? Kamu selalu membuat hariku lebih cerah!",
+                "Semangat Terus yaaa Sayangggg!",
+                "Semoga Kita Bersam Dunia Akhirat"
+            ];
+            const randomTrivia = triviaContent[Math.floor(Math.random() * triviaContent.length)];
+            alert(randomTrivia);
+            clickSound.play();
+        }
+
+        function changeTheme(bgColor, textColor) {
+            document.body.style.backgroundColor = bgColor;
+            document.body.style.color = textColor;
+        }
+
+        const pieces = [
+            'eza.jpg', '1.jpg', '3.jpg', 're.jpg', '4.jpg.jpg', '2.jpg', 'ez.jpg'
+        ];
+
+        function shufflePuzzle() {
+            const board = document.getElementById('puzzle-board');
+            board.innerHTML = '';
+            pieces.sort(() => Math.random() - 0.5);
+
+            pieces.forEach((piece, index) => {
+                const img = document.createElement('img');
+                img.src = piece;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.setAttribute('draggable', true);
+                img.setAttribute('id', 'piece' + index);
+                img.addEventListener('dragstart', dragStart);
+                img.addEventListener('dragover', dragOver);
+                img.addEventListener('drop', drop);
+                board.appendChild(img);
+            });
+        }
+
+        function dragStart(event) {
+            event.dataTransfer.setData('text', event.target.id);
+        }
+
+        function dragOver(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const draggedElementId = event.dataTransfer.getData('text');
+            const draggedElement = document.getElementById(draggedElementId);
+            const droppedElement = event.target;
+
+            const draggedSrc = draggedElement.src;
+            draggedElement.src = droppedElement.src;
+            droppedElement.src = draggedSrc;
+        }
+    </script>
+</head>
+<body>
+    <div class="welcome-panel">
+        <h1>Halo sayang, Selamat Datang!</h1>
+        <p>Halaman ini dibuat oleh Fahreza untuk Naurel Nafeeza Adhani ❤️</p>
+        <p>Masukkan namamu untuk melanjutkan:</p>
+        <input type="text" id="nameInput" placeholder="Nama kamu">
+        <button onclick="startExperience()">Lanjutkan</button>
+    </div>
+
+    <header>
+        <h1>Selamat Ulang Tahun, <span id="greetingName">Cintaku</span>!</h1>
+        <p>Hayooo siapa yang ultah hari iniii???🤭🤭🤭
+
+
+            hari ini adalah hari dimnaa ada seseorang yang bgitu baik di lahirkan ke duniaa, 
+            selamat bertambah usia pacarkuuu smoga makin dewasa dan makin sayangg sama keluarga samaa kuu  jugaa mwhehe,
+             smogaa dgn bertambah nya umur taa, semakin sempurna juga iman taa, rajin ibadah nya, panjang umurr, selalu bahagiaaa,
+              berbakti teruss sama orgtuaa, sertaa segalaa doa dan citacitaa yang kitaaa inginkan bisa terwujud dan dimudahkan dalam segalaaa urusannn Aamiin. 
+              haruss lebih dewasaa dari sebelumnyaa yaa sayangg,jangan prnh cape buat perbaiki diri jadi lebih baik lagiii
+            
+            maaf sayangg kalau selama ini akuu blum bisa jadi apa yang kita mau, maaf juga kalau akuu seringg kasih marah marah kita, tapi satu hal yang harus kita tau, akuu selalu berusahaa perbaiki diri dan berusaha jadi apa yang kita harapkan
+            
+            terimakasih sudah jadi orang yang selalu ada buat akuu terimakasih
+            
+            terimakasih sudah jadi orang yang selalu ada buat saya, terimakasih sudah jadi bagian dari hidupku dan terimakasih sudah mau sabar sama sikapku!</p>
+        <p>Scroll Ke paling Bawah Nyalain dulu Musiknya mwhehe</p>
+    </header>
+
+    <div class="gallery">
+        <img src="1.jpg" alt="Si Cantik">
+        <img src="2.jpg" alt="Suka ngambek">
+        <img src="3.jpg" alt="Sayangnya Akuu">
+    </div>
+
+    <div class="message-panel">
+        <h2>Tulis Kesan, Pesan, dan Harapanmu</h2>
+        <textarea id="messageInput" placeholder="Tulis di sini..."></textarea>
+        <button onclick="submitMessage()">Kirim</button>
+    </div>
+
+    <div class="trivia">
+        <h2>Trivia Spesial</h2>
+        <p>Pencet deh terus sayang:</p>
+        <button onclick="showTrivia()">Tampilkan Trivia</button>
+    </div>
+
+    <div class="puzzle-container">
+        <h2>Hallo Bocill</h2>
+        <p>Kesayangannya akuuu</p>
+        <div id="puzzle-board"></div>
+        <button onclick="shufflePuzzle()">Coba pencet </button>
+    </div>
+
+    <div class="theme-selector">
+        <h3>Pilih Tema:</h3>
+        <button onclick="changeTheme('#f5c8f1', '#ff7eb6')">Romantis</button>
+        <button onclick="changeTheme('#a2d9ff', '#3498db')">Birunya Cinta</button>
+        <button onclick="changeTheme('#fff', '#f39c12')">Cerah Bahagia</button>
+    </div>
+
+    <footer>
+        <p>diputer lagunya ❤️</p>
+        <audio controls autoplay loop>
+            <source src="Adexe y Nau - El Perdón (Nicky Jam & Enrique Iglesias Cover).mp3" type="audio/mpeg">
+            Browser Anda tidak mendukung elemen audio.
+        </audio>
+    </footer>
+
+    <!-- Balon Melayang -->
+    <div class="balloon">
+        <img src="45.jpg" alt="Balloon">
+    </div>
+    <div class="balloon" style="animation-delay: 2s;">
+        <img src="45.jpg" alt="Balloon">
+    </div>
+    <div class="balloon" style="animation-delay: 4s;">
+        <img src="45.jpg" alt="Balloon">
+    </div>
+
+    <div class="floating-particles">
+        <span style="animation-delay: 0s; left: 20%;"></span>
+        <span style="animation-delay: 0.5s; left: 50%;"></span>
+        <span style="animation-delay: 1s; left: 80%;"></span>
+    </div>
+</body>
+</html>
